@@ -1,0 +1,35 @@
+---
+layout: post
+title: $title$
+category: $category$
+$if(tags)$
+tags: $tags$
+$endif$
+date: $date$
+comments: true
+hidden:
+  - related_posts
+$if(cover)$
+banner:
+  image: /assets/static/$cover$
+  opacity: 0.6
+$endif$
+---
+
+$for(header-includes)$
+$header-includes$
+
+$endfor$
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+$table-of-contents$
+
+$endif$
+$body$
+$for(include-after)$
+
+$include-after$
+$endfor$
