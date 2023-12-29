@@ -57,6 +57,8 @@ public class PandocASTDeserializer extends StdDeserializer<PandocAST>
         insertToMeta("tags", tags, mainNode);
         String cover = popCover(mainNode);
         insertToMeta("cover", cover, mainNode);
+        String summary = popSummary(mainNode);
+        insertToMeta("summary", summary, mainNode);
         List<JsonNode> galleryBlocks = listOrgBlocks(mainNode, "json");
         transformGalleryBlocks(galleryBlocks);
 
@@ -111,6 +113,30 @@ public class PandocASTDeserializer extends StdDeserializer<PandocAST>
         {
             String cover = orgNode.textValue();
             return cover.substring(9);
+        }
+        return null;
+    }
+
+    /**
+     * Read summary from org file if it exists.
+     *
+     * @param node Main JSON node from pandoc.
+     * @return Summary or null if not exists.
+     */
+    private String popSummary(JsonNode node)
+    {
+        JsonNode summaryNode = popOrgBlock(node, (n) -> {
+            if(n.isTextual() && n.textValue().startsWith("#+SUMMARY: "))
+            {
+                return n;
+            }
+            return null;
+        });
+
+        if(summaryNode != null)
+        {
+            String summary = summaryNode.textValue();
+            return summary.substring(11);
         }
         return null;
     }
