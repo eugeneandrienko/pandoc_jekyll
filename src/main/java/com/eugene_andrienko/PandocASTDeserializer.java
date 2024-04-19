@@ -59,6 +59,8 @@ public class PandocASTDeserializer extends StdDeserializer<PandocAST>
         insertToMeta("cover", cover, mainNode);
         String summary = popSummary(mainNode);
         insertToMeta("summary", summary, mainNode);
+        String lang = popLang(mainNode);
+        insertToMeta("lang", lang, mainNode);
         List<JsonNode> galleryBlocks = listOrgBlocks(mainNode, "json");
         transformGalleryBlocks(galleryBlocks);
 
@@ -137,6 +139,30 @@ public class PandocASTDeserializer extends StdDeserializer<PandocAST>
         {
             String summary = summaryNode.textValue();
             return summary.substring(11);
+        }
+        return null;
+    }
+
+    /**
+     * Read lang from org file
+     *
+     * @param node Main JSON node from pandoc.
+     * @return Language code, or null if not exists.
+     */
+    private String popLang(JsonNode node)
+    {
+        JsonNode orgNode = popOrgBlock(node, (n) -> {
+            if(n.isTextual() && n.textValue().startsWith("#+LANG: "))
+            {
+                return n;
+            }
+            return null;
+        });
+
+        if(orgNode != null)
+        {
+            String cover = orgNode.textValue();
+            return cover.substring(8);
         }
         return null;
     }

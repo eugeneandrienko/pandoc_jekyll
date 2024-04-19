@@ -68,6 +68,13 @@ public class PandocASTDeserializerTest
                              ]
                          },
                          {
+                             "t": "RawBlock",
+                             "c": [
+                                 "org",
+                                 "#+LANG: ru"
+                             ]
+                         },
+                         {
                              "t": "Para",
                              "c": [
                                 {

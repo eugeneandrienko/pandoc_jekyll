@@ -6,6 +6,7 @@ $if(tags)$
 tags: $tags$
 $endif$
 date: $date$
+lang: $lang$
 comments: true
 hidden:
   - related_posts
