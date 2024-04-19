@@ -1,7 +1,7 @@
 package com.eugene_andrienko;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
